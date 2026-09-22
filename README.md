@@ -1,102 +1,159 @@
 # ROS 2 Course
 
-Course materials and structured laboratory-work submissions for learning robot
-software development with ROS 2.
+Course materials, starter packages, practical tasks, and structured laboratory
+submissions for learning robot software development with ROS 2.
 
-The course uses **ROS 2 Jazzy** on **Ubuntu 24.04** and **Gazebo Harmonic**.
-It introduces ROS 2 communication and tooling before progressing from robot
-descriptions to simulation, control, sensors, and hardware integration.
+The course targets **ROS 2 Jazzy**, **Ubuntu 24.04**, and **Gazebo Harmonic**.
+It progresses from ROS communication fundamentals to robot modeling,
+simulation, feedback control, sensors, and physical hardware integration.
 
-## Course content
+## Course topics
 
-The course covers:
-
-- Linux, ROS 2 installation, workspaces, packages, and `colcon`;
-- ROS 2 nodes, topics, messages, parameters, namespaces, and launch files;
-- quality of service (QoS), ROS time, and command-line tools;
-- custom messages, services, and actions;
-- TF2, URDF, Xacro, and visualization in RViz2;
-- robot simulation with Gazebo and communication through `ros_gz_bridge`;
-- joint and mobile-base control with `ros2_control`;
-- simulated cameras and lidars and processing their data;
-- hardware interfaces and communication with a microcontroller.
+- Ubuntu, ROS 2 installation, workspaces, packages, and `colcon`
+- Nodes, topics, messages, parameters, namespaces, and launch files
+- Quality of Service, ROS time, logging, and command-line diagnostics
+- Custom messages, services, and actions
+- TF2, URDF, Xacro, `robot_state_publisher`, and RViz2
+- Gazebo simulation and `ros_gz_bridge`
+- Differential-drive kinematics and `ros2_control`
+- Camera and lidar simulation and sensor-data processing
+- Arduino communication, encoder feedback, and hardware drivers
 
 ## Laboratory works
 
-1. **ROS 2 package and controller** — run two turtlesim instances in separate
-   namespaces, control the first turtle through assigned points, and make the
+1. **ROS 2 package and controller** — launch two turtlesim systems in separate
+   namespaces, guide the first turtle through assigned points, and make the
    second turtle follow its pose.
-2. **Custom services and actions** — define custom interfaces and separate
-   turtle-control behavior into clients and servers. The action part is an
-   optional advanced task.
+2. **Custom services and actions** — create a student-named interface package
+   and implement service/action clients and servers in `lab2_controller`.
 3. **Robot model** — describe a variant-specific mobile robot and manipulator
-   using Xacro, publish its state, and visualize its model and TF tree in RViz2.
-4. **Robot simulation and control** — simulate a differential-drive robot in
-   Gazebo, control its joints with `ros2_control`, and convert `/cmd_vel`
-   commands into wheel velocities.
-5. **Sensors and autonomous behavior** — add a camera and lidar to a simulated
-   robot, create a populated scene, visualize sensor data, and implement a
-   clearly observable behavior using sensor feedback.
-6. **Hardware integration with `ros2_control`** — create a custom hardware
-   interface derived from `hardware_interface::SystemInterface`, register it as
-   a plugin, and connect it to the robot through URDF and controller
-   configuration. Implement the `read`/`update`/`write` control loop and exchange
-   wheel commands and encoder feedback with an Arduino-compatible
-   microcontroller using the specified `SET` and `ENC` protocol. The completed
-   system must expose its hardware interfaces and controllers through the ROS 2
-   control tools and run with simulation time disabled.
+   in Xacro and visualize its model and TF tree in RViz2.
+4. **Simulation and control** — simulate a differential-drive robot, control
+   its joints through `ros2_control`, and convert `/cmd_vel` into wheel speeds.
+5. **Sensors and autonomous behavior** — add a camera and lidar, construct a
+   populated simulation world, and implement behavior using sensor feedback.
+6. **Hardware integration** — implement a Python ROS driver and integrate the
+   Arduino hardware plugin, command transport, and encoder feedback.
 
-Exact variant values and assessment requirements are defined in the course
-book. A student's variant is selected using the last digit of their ITMO ISU
-ID.
+Variant-specific dimensions, target points, sensor parameters, and assessment
+requirements are defined in the course book. A student's variant is selected
+using the last digit of their ITMO ISU ID.
 
-## Repository layout
+## Repository structure
 
 ```text
 ros2_course/
-├── lab1/    # mybestcontroller
-├── lab2/    # lab2_interfaces and lab2_controller
-├── lab3/    # my_best_model
-├── lab4/    # my_best_robot_simulation_control
-├── lab5/    # my_best_robot_simulation_setup
-├── lab6/    # my_robot_hardware and hardware-control configuration
-└── docker_ros2/
+├── lab1/
+│   └── mybestcontroller/                  # ament_python
+├── lab2/
+│   ├── lab2_controller/                   # provided ament_python package
+│   └── <student_interface_package>/       # student-created ament_cmake package
+├── lab3/
+│   └── my_best_model/                     # ament_python
+├── lab4/
+│   └── my_best_robot_simulation_control/  # ament_python
+├── lab5/
+│   └── my_best_robot_simulation_setup/    # ament_python
+├── lab6/
+│   ├── my_ros_driver/                     # ament_python
+│   └── diffdrive_arduino_hardware/        # ament_cmake
+├── tasks/                                 # independent practical assignments
+├── docker_ros2/                           # course container environment
+├── install_ros2_jazzy.html                # English installation guide
+├── install_ros2_jazzy_ru.html             # Russian installation guide
+└── ros2_cheatsheet.html                   # ROS 2 command reference
 ```
 
-The `lab1` through `lab6` directories are submission locations. Package names,
-required filenames, and directory paths must remain unchanged because automated
-checks rely on them. Skeleton files provide structure only; students must
-replace all `TODO(student)` markers with their own implementations.
+Each `labN` directory is a plain submission container rather than a ROS
+package. Package metadata must remain inside the package directories shown
+above. The required names and paths form part of the automated-checking
+contract.
 
-Do not commit generated workspace artifacts such as `build/`, `install/`, or
-`log/`.
+## Package inventory
 
-## Building a submission
+| Lab | Package | Build type | Purpose |
+| --- | --- | --- | --- |
+| 1 | `mybestcontroller` | `ament_python` | Namespaced turtlesim controller |
+| 2 | `lab2_controller` | `ament_python` | Service/action client and server nodes |
+| 2 | Student-selected name | `ament_cmake` | Custom `.srv` and `.action` interfaces |
+| 3 | `my_best_model` | `ament_python` | Xacro model and RViz2 launch resources |
+| 4 | `my_best_robot_simulation_control` | `ament_python` | Gazebo and differential-drive control |
+| 5 | `my_best_robot_simulation_setup` | `ament_python` | Sensor-equipped Gazebo simulation |
+| 6 | `my_ros_driver` | `ament_python` | ROS-to-microcontroller driver |
+| 6 | `diffdrive_arduino_hardware` | `ament_cmake` | `ros2_control` hardware plugin |
 
-Place the repository inside a ROS 2 workspace or build a selected package from
-the repository root. For example:
+Detailed requirements are available in each laboratory's `README.MD` file.
+Starter packages define structure and resource locations; students remain
+responsible for their assigned interfaces, variants, nodes, algorithms, and
+hardware behavior.
+
+## Installation
+
+Use one of the standalone guides:
+
+- [Install ROS 2 Jazzy — English](install_ros2_jazzy.html)
+- [Установка ROS 2 Jazzy — русский](install_ros2_jazzy_ru.html)
+- [Docker environment](docker_ros2/README.md)
+
+The native target is Ubuntu 24.04 with ROS 2 Jazzy and Gazebo Harmonic. The
+Docker environment provides the same course dependencies and mounts this
+repository at `/workspace`.
+
+## Building packages
+
+From the repository root:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-colcon build --symlink-install --packages-select mybestcontroller
+rosdep update
+rosdep install --from-paths . --ignore-src --rosdistro jazzy -y
+colcon build --symlink-install
 source install/setup.bash
 ```
 
-Run Lab 1 with:
+Build one package and its dependencies when working on an individual lab:
+
+```bash
+colcon build --symlink-install --packages-up-to my_best_model
+```
+
+List the packages detected in the repository:
+
+```bash
+colcon list --base-paths lab1 lab2 lab3 lab4 lab5 lab6
+```
+
+## Running laboratory packages
+
+Examples using the fixed launch contracts:
 
 ```bash
 ros2 launch mybestcontroller lab1.launch.py
+ros2 launch my_best_model rviz.launch.py
+ros2 launch my_best_robot_simulation_control simulation_control.launch.py
+ros2 launch my_best_robot_simulation_setup simulation_final.launch.py
 ```
 
-Other laboratory packages use the launch filenames specified in their
-assignments and package documentation.
+Lab 2 and Lab 6 launch commands depend on the executables and launch files
+completed by the student. Consult the corresponding laboratory README.
+
+## Practical tasks and reference material
+
+The [`tasks/`](tasks/) directory contains one Markdown file for each independent
+assignment block from the course book. These are practical exercises and are
+separate from the structured laboratory submissions.
+
+The standalone [ROS 2 command cheat sheet](ros2_cheatsheet.html) covers package
+creation, graph inspection, topics, services, actions, parameters, launch,
+rosbag2, TF2, Xacro, `ros2_control`, Gazebo, and diagnostics.
 
 ## Submission rules
 
-- Submit source packages only in the corresponding `labN` directory.
-- Preserve all required package and file names.
-- Do not include unrelated packages or generated build artifacts.
-- Replace template metadata and every student TODO where instructed.
-- Ensure the package builds from a clean workspace before submission.
-- Keep solutions original; this repository provides submission structure, not
-  completed laboratory solutions.
+- Submit source files only under the corresponding `labN` directory.
+- Preserve all required directory, package, interface, and launch filenames.
+- Keep ROS package metadata inside its package directory.
+- Do not commit `build/`, `install/`, `log/`, caches, or generated Python files.
+- Declare dependencies in `package.xml` and package build metadata.
+- Confirm that packages build from a clean workspace.
+- Test required launch commands and ROS interfaces before submission.
+- Submit original work; starter content is not a completed laboratory solution.
