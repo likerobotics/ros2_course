@@ -1,4 +1,4 @@
-# Laboratory Work 3: Robot Model
+# Lab 3: Robot Model
 
 ## Objective
 
@@ -7,19 +7,25 @@ and visualize its geometry and TF tree in RViz2.
 
 ## Submission structure
 
-Submit exactly one ROS 2 package:
+The `lab3` directory is a plain submission container. Submit exactly one ROS 2
+package inside it:
 
 ```text
 lab3/
-└── my_best_model/
+└── my_best_model/              # ament_python package
     ├── config/
     ├── launch/rviz.launch.py
     ├── urdf/robot_model.xacro
-    ├── CMakeLists.txt
-    └── package.xml
+    ├── my_best_model/
+    ├── resource/
+    ├── package.xml
+    ├── setup.cfg
+    └── setup.py
 ```
 
 Remove unrelated files and packages from `lab3` before submission.
+Do not place package metadata directly in `lab3/`. The submitted
+`my_best_model` package must use the `ament_python` build type.
 
 ## Model requirements
 
@@ -52,3 +58,8 @@ The submitted package must install its `launch`, `urdf`, and `config` resources.
 The repository backbone must not predefine variant geometry or a completed robot
 model.
 
+
+
+## Initial folder content
+
+In the package you can find a half of mobile robot model to be used as starting point.

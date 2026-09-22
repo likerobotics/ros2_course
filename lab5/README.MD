@@ -1,4 +1,4 @@
-# Laboratory Work 5: Sensor-Equipped Robot Simulation
+# Lab 5: Sensor-Equipped Robot Simulation
 
 ## Objective
 
@@ -7,18 +7,25 @@ lidar, then implement observable robot behavior driven by sensor feedback.
 
 ## Submission structure
 
-Submit exactly one ROS 2 package:
+The `lab5` directory is a plain submission container. Submit exactly one ROS 2
+package inside it:
 
 ```text
 lab5/
-└── my_best_robot_simulation_setup/
+└── my_best_robot_simulation_setup/    # ament_python package
     ├── config/
     ├── launch/simulation_final.launch.py
     ├── urdf/
     ├── worlds/
-    ├── CMakeLists.txt
-    └── package.xml
+    ├── my_best_robot_simulation_setup/
+    ├── resource/
+    ├── package.xml
+    ├── setup.cfg
+    └── setup.py
 ```
+
+Do not place package metadata directly in `lab5/`. The submitted
+`my_best_robot_simulation_setup` package must use the `ament_python` build type.
 
 ## Scene requirements
 
@@ -52,4 +59,3 @@ ros2 launch my_best_robot_simulation_setup simulation_final.launch.py
 
 All runtime resources must be installed by the package. The backbone must not
 provide a completed world, sensor-processing algorithm, or autonomous behavior.
-

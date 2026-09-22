@@ -1,4 +1,4 @@
-# Laboratory Work 4: Simulation and Differential-Drive Control
+# Lab 4: Simulation and Differential-Drive Control
 
 ## Objective
 
@@ -8,17 +8,26 @@ conversion from velocity commands to wheel velocities.
 
 ## Submission structure
 
-Submit exactly one ROS 2 package:
+The `lab4` directory is a plain submission container. Submit exactly one ROS 2
+package inside it:
 
 ```text
 lab4/
-└── my_best_robot_simulation_control/
+└── my_best_robot_simulation_control/    # ament_python package
     ├── config/
     ├── launch/simulation_control.launch.py
     ├── urdf/
-    ├── CMakeLists.txt
-    └── package.xml
+    ├── worlds/
+    ├── my_best_robot_simulation_control/
+    ├── resource/
+    ├── package.xml
+    ├── setup.cfg
+    └── setup.py
 ```
+
+Do not place package metadata directly in `lab4/`. The submitted
+`my_best_robot_simulation_control` package must use the `ament_python` build
+type.
 
 ## Functional requirements
 
@@ -45,4 +54,3 @@ ros2 launch my_best_robot_simulation_control simulation_control.launch.py
 Parameters not fixed by the assignment may be selected by the student. The
 backbone must not include the kinematic conversion or variant-specific model as
 a completed solution.
-

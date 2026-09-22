@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>my_best_robot_simulation_setup</name>
+  <version>0.0.0</version>
+  <description>Python sensor simulation package skeleton for laboratory work 5.</description>
+  <maintainer email="student@example.com">student</maintainer>
+  <license>Apache-2.0</license>
+
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

@@ -1,50 +1,66 @@
-# Laboratory Work 2: Custom Services and Actions
+# Lab 2: Custom Services and Actions
 
 ## Objective
 
-Define custom ROS 2 service and action interfaces and separate turtle-control
-behavior into client and server nodes.
+Define custom ROS 2 interfaces and implement separate client and server nodes
+for turtle control.
 
-## Submission structure
+## Submission contract
 
-Submit exactly two packages:
+The submitted `lab2` directory must contain exactly two ROS 2 packages:
 
 ```text
 lab2/
-├── lab2_interfaces/    # ament_cmake interface package
-└── lab2_controller/    # ament_python node package
+├── lab2_controller/       # provided empty ament_python package
+└── <interface_package>/   # student-created ament_cmake package
 ```
 
-Remove unrelated files and packages from `lab2` before submission.
+Requirements:
+
+- Keep the provided controller package name `lab2_controller` unchanged.
+- Implement all Python clients, servers, and launch files in
+  `lab2_controller`.
+- Create one additional interface package using `ament_cmake`.
+- The interface-package name is selected by the student.
+- Store all custom `.srv` and `.action` definitions only in the interface
+  package.
+- Declare the interface package as a dependency of `lab2_controller` after it
+  is created.
+- Do not place `.srv` or `.action` files in `lab2_controller`.
+- Do not place `package.xml`, `setup.py`, or `CMakeLists.txt` directly in the
+  `lab2` directory.
+
+The provided `lab2_controller` package intentionally contains no nodes,
+interfaces, launch files, or completed solution logic.
 
 ## Part 1: Service
 
-- Create `AISUID.srv` in `lab2_interfaces`, replacing `ISUID` with the student's
-  six-digit ITMO ISU ID.
-- The request must contain the current `Xcurrent` and `Ycurrent` coordinates.
-- The response must provide target distance `Distance` and angular error
+- Create `AISUID.srv` in the student-created interface package, replacing
+  `ISUID` with the student's six-digit ITMO ISU ID.
+- The request must contain current coordinates `Xcurrent` and `Ycurrent`.
+- The response must contain target distance `Distance` and angular error
   `Angle`. An additional completion flag may be used.
-- The server owns the target-point list and computes the errors. The client
+- Implement the service server and client in `lab2_controller`.
+- The server owns the target-point list and calculates the errors. The client
   must not know the target coordinates.
-- The client obtains the current turtle pose, requests errors while the turtle
-  is stationary, and performs closed-loop motion.
+- The client obtains the turtle pose, requests errors while the turtle is
+  stationary, and performs closed-loop motion.
 - The server advances to the next assigned target when the current target is
-  reached. Use the tolerances defined in the course book.
+  reached, using the tolerances specified in the course book.
 - Provide `service_server.launch.py` and `service_client.launch.py`. The server
   launch file must also start turtlesim.
 - Verify the server using both `ros2 service call` and the custom client.
 
 ## Part 2: Action (optional advanced task)
 
-- Create `AISUID.action` in `lab2_interfaces`.
+- Create `AISUID.action` in the same interface package.
 - The goal contains a target position, feedback reports distance error, and the
   result reports successful completion.
-- The action server controls the turtle; the client sends a goal, displays
-  feedback, and reports completion.
+- Implement the action server and client in `lab2_controller`.
+- The server controls the turtle. The client sends a goal, displays feedback,
+  and reports completion.
 - Provide `action_server.launch.py` and `action_client.launch.py`.
-- Verify the server using `ros2 action send_goal` and the custom client.
+- Verify the server with `ros2 action send_goal` and the custom client.
 
-All interface names, package names, and launch filenames form part of the
-automated-checking contract. This repository does not provide node logic or
-interface definitions as a completed solution.
-
+Package names, interface filenames, and required launch filenames are part of
+the automated-checking contract.

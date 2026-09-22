@@ -1,73 +1,64 @@
-# Laboratory Work 6: Hardware Integration with ros2_control
+# Lab 6: ROS 2 Hardware Driver
 
 ## Objective
 
-Integrate a physical mobile robot into ROS 2 by implementing a custom
-`ros2_control` hardware interface, configuring controllers, and exchanging
-commands and encoder feedback with a microcontroller.
+Integrate a physical mobile robot with ROS 2 by implementing a Python driver,
+configuring command and feedback communication, and exchanging data with a
+microcontroller.
 
-## Submission structure
+## Submission contract
 
-The hardware plugin package is named `my_robot_hardware` and uses
-`ament_cmake`. A submission must contain, at minimum:
+The `lab6` directory is a plain submission container. It contains the Python
+driver package and the Arduino `ros2_control` hardware package:
 
 ```text
 lab6/
-└── my_robot_hardware/
-    ├── config/
-    ├── include/my_robot_hardware/
-    ├── launch/
-    ├── src/
-    ├── urdf/
-    ├── CMakeLists.txt
-    ├── package.xml
-    └── plugin_description.xml
+├── my_ros_driver/                   # ament_python package
+│   ├── launch/
+│   ├── my_ros_driver/
+│   ├── resource/
+│   ├── package.xml
+│   ├── setup.cfg
+│   └── setup.py
+└── diffdrive_arduino_hardware/      # ament_cmake hardware plugin
 ```
 
-Additional support packages may be included only when required by the submitted
-hardware architecture.
+Requirements:
 
-## Hardware interface requirements
+- Keep the package name `my_ros_driver` unchanged.
+- Use the `ament_python` build type.
+- Place Python nodes in the `my_ros_driver` module.
+- Register submitted executables under `console_scripts` in `setup.py`.
+- Install submitted launch files through `setup.py`.
+- Do not place package metadata directly in `lab6/`.
+- Keep the hardware package name `diffdrive_arduino_hardware` unchanged.
 
-- Implement a class derived from `hardware_interface::SystemInterface`.
-- Export velocity command interfaces and velocity state interfaces for the left
-  and right wheel joints.
-- Implement lifecycle initialization and the required interface-export,
-  `read()`, and `write()` methods for the installed Jazzy API.
-- Register the class with `pluginlib` and export it through
-  `plugin_description.xml`.
-- Declare and link the `hardware_interface`, `rclcpp`, and `pluginlib`
-  dependencies.
+The provided `my_ros_driver` package is intentionally empty and contains no
+Python driver or protocol solution.
 
-## Robot and controller configuration
+## Driver requirements
 
-- Add a `ros2_control` system block to the robot description and reference the
-  submitted hardware plugin.
-- Configure `controller_manager` with an update rate of 30 Hz unless a justified
-  alternative is required.
-- Configure a joint-state broadcaster and a differential-drive base controller.
-- Launch the physical system with `use_sim_time` set to `false`.
-
-## Microcontroller protocol and control loop
-
-- Send wheel commands using `SET v_left v_right`.
+- Receive robot motion or wheel commands through ROS 2 topics.
+- Convert commands into the format expected by the microcontroller.
+- Send wheel commands using the protocol `SET v_left v_right`.
 - Receive encoder measurements using `ENC ticks_left ticks_right`.
-- Convert encoder measurements into wheel state in `read()`.
-- Transmit current wheel commands in `write()`.
-- Ensure the complete loop performs read, controller update, and write phases.
+- Parse encoder measurements and publish the resulting robot or wheel state.
+- Implement explicit QoS settings suitable for command and feedback traffic.
+- Handle serial communication errors and malformed input without terminating
+  unexpectedly.
+- Run against physical time with `use_sim_time` set to `false`.
 
 ## Verification
 
-The running system must expose its interfaces and active controllers through:
+The completed package must build with `colcon`, expose its registered
+executables through `ros2 pkg executables my_ros_driver`, and start through the
+submitted launch file. During operation, the robot must accept commands and
+provide encoder feedback through ROS 2.
+
+If the final architecture also uses `ros2_control`, verify its configured
+interfaces and controllers with:
 
 ```bash
 ros2 control list_hardware_interfaces
 ros2 control list_controllers
 ```
-
-The robot must accept motion commands, produce controller outputs, exchange data
-with the microcontroller, and report encoder feedback. The independent task is
-to support another kinematic configuration and add appropriate QoS settings.
-The backbone must not contain the hardware driver, serial protocol
-implementation, or custom controller solution.
-

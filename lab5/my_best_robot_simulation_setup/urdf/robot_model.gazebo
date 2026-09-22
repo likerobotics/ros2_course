@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot>
+    <gazebo>
+        <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+            <parameters>$(find my_best_robot_simulation_setup)/config/diff_control.yaml</parameters>
+        </plugin>
+
+        <plugin
+          filename="ignition-gazebo-joint-state-publisher-system"
+          name="ignition::gazebo::systems::JointStatePublisher">
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-pose-publisher-system"
+            name="ignition::gazebo::systems::PosePublisher">
+            <publish_link_pose>true</publish_link_pose>
+            <use_pose_vector_msg>true</use_pose_vector_msg>
+            <static_publisher>true</static_publisher>
+            <static_update_frequency>1</static_update_frequency>
+        </plugin>
+    </gazebo>
+
+    <gazebo reference="lidar_link">
+     <sensor name='gpu_lidar' type='gpu_lidar'>
+          <pose>0 0 0 0 0 0</pose>
+          <topic>scan</topic>
+          <ignition_frame_id>diff_drive/lidar_link</ignition_frame_id>
+          <update_rate>10</update_rate>
+          <lidar>
+            <scan>
+              <horizontal>
+                <samples>640</samples>
+                <resolution>1</resolution>
+                <min_angle>-1.396263</min_angle>
+                <max_angle>1.396263</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>1</samples>
+                <resolution>1</resolution>
+                <min_angle>0.0</min_angle>
+                <max_angle>0.0</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.08</min>
+              <max>10.0</max>
+              <resolution>0.01</resolution>
+            </range>
+          </lidar>
+          <visualize>true</visualize>
+        </sensor>
+    </gazebo>
+</robot>

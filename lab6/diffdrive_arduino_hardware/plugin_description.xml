@@ -1,0 +1,8 @@
+<library path="diffdrive_arduino_hardware">
+  <class
+    name="diffdrive_arduino_hardware/MecanumArduinoHardware"
+    type="diffdrive_arduino_hardware::MecanumArduinoHardware"
+    base_class_type="hardware_interface::SystemInterface">
+    <description>Mecanum base hardware interface talking to Arduino over serial.</description>
+  </class>
+</library>

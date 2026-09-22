@@ -1,6 +1,0 @@
-float32 x
-float32 y
----
-bool success
----
-float32 distance_remaining

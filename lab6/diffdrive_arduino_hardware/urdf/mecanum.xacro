@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<robot name="omni" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+
+    <xacro:include filename="$(find diffdrive_arduino_hardware)/urdf/materials.xacro" />
+    <xacro:include filename="$(find diffdrive_arduino_hardware)/urdf/wheel.xacro" />
+    
+    <link name='base_link'>
+        <origin xyz="0.0 0.0 0.1" rpy="0.0 0 0.0"/>
+        <visual name='base_visual'>
+            <origin xyz="0.0 0.0 0.2" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.6 0.3 0.2"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <xacro:wheel side="front_left" x="0.15" y="0.175" z="0.1"/>
+    <xacro:wheel side="front_right" x="0.15" y="-0.175" z="0.1"/>
+    <xacro:wheel side="back_left" x="-0.15" y="0.175" z="0.1"/>
+    <xacro:wheel side="back_right" x="-0.15" y="-0.175" z="0.1"/>
+
+    <ros2_control name="mecanum_base" type="system">
+        <hardware>
+            <plugin>diffdrive_arduino_hardware/MecanumArduinoHardware</plugin>
+            <param name="port">/dev/ttyUSB0</param>
+            <param name="baudrate">115200</param>
+            <param name="ticks_per_rev">660</param>
+            <param name="reverse_wheels">true</param>
+        </hardware>
+
+        <joint name="wheel_front_left_joint">
+            <command_interface name="velocity"/>
+            <state_interface   name="velocity"/>
+        </joint>
+
+        <joint name="wheel_front_right_joint">
+            <command_interface name="velocity"/>
+            <state_interface   name="velocity"/>
+        </joint>
+
+        <joint name="wheel_back_right_joint">
+            <command_interface name="velocity"/>
+            <state_interface   name="velocity"/>
+        </joint>
+
+        <joint name="wheel_back_left_joint">
+            <command_interface name="velocity"/>
+            <state_interface   name="velocity"/>
+        </joint>
+    </ros2_control>
+</robot>
