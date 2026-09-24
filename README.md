@@ -1,5 +1,15 @@
 # ROS 2 Course
 
+> [!NOTE]
+> README for russian stidents available [here](https://github.com/likerobotics/mobile_robot_ros_driver/blob/main/README_RU.md).
+
+
+> [!WARNING]
+> It is mandatory to use a book provided by teacher instead of README.MD files If you are ITMO University student and studing Operation System ROS. 
+>
+> README.MD files only for NON ITMO University students! 
+
+
 Course materials, starter packages, practical tasks, and structured laboratory
 submissions for learning robot software development with ROS 2.
 
