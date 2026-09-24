@@ -10,12 +10,12 @@
 > README.MD files only for NON ITMO University students! 
 
 
-Course materials, starter packages, practical tasks, and structured laboratory
+Course materials, starter packages, practical tasks, and structured LAB
 submissions for learning robot software development with ROS 2.
 
-The course targets **ROS 2 Jazzy**, **Ubuntu 24.04**, and **Gazebo Harmonic**.
+The course materials based on **ROS 2 Jazzy**, **Ubuntu 24.04**, and **Gazebo Harmonic**.
 It progresses from ROS communication fundamentals to robot modeling,
-simulation, feedback control, sensors, and physical hardware integration.
+simulation, feedback control, sensors data processing, and physical hardware integration.
 
 ## Course topics
 
@@ -29,7 +29,7 @@ simulation, feedback control, sensors, and physical hardware integration.
 - Camera and lidar simulation and sensor-data processing
 - Arduino communication, encoder feedback, and hardware drivers
 
-## Laboratory works
+## LABS
 
 1. **ROS 2 package and controller** — launch two turtlesim systems in separate
    namespaces, guide the first turtle through assigned points, and make the
@@ -46,8 +46,8 @@ simulation, feedback control, sensors, and physical hardware integration.
    Arduino hardware plugin, command transport, and encoder feedback.
 
 Variant-specific dimensions, target points, sensor parameters, and assessment
-requirements are defined in the course book. A student's variant is selected
-using the last digit of their ITMO ISU ID.
+requirements are defined in the course book. A student's variant depended
+on the last digit of their ITMO ISU ID. If you are non ITMO student, you can use variant 0.
 
 ## Repository structure
 
@@ -102,7 +102,7 @@ hardware behavior.
 Use one of the standalone guides:
 
 - [Install ROS 2 Jazzy — English](install_ros2_jazzy.html)
-- [Установка ROS 2 Jazzy — русский](install_ros2_jazzy_ru.html)
+- [Установка ROS 2 Jazzy — русский](https://likerobotics.ru/courses/ros2/ustanovka-ros-2-jazzy/)
 - [Docker environment](docker_ros2/README.md)
 
 The native target is Ubuntu 24.04 with ROS 2 Jazzy and Gazebo Harmonic. The
@@ -145,7 +145,7 @@ ros2 launch my_best_robot_simulation_setup simulation_final.launch.py
 ```
 
 Lab 2 and Lab 6 launch commands depend on the executables and launch files
-completed by the student. Consult the corresponding laboratory README.
+completed by the student. Consult the corresponding lab README or course book.
 
 ## Practical tasks and reference material
 
