@@ -1,4 +1,8 @@
 # Lab 5: Sensor-Equipped Robot Simulation
+> [!WARNING]
+> It is mandatory to use a book provided by teacher instead of README.MD files If you are ITMO University student and studing Operation System ROS. 
+>
+> README.MD files only for NON ITMO students! 
 
 ## Objective
 

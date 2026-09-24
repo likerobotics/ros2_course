@@ -1,4 +1,8 @@
 # Lab 6: ROS 2 Hardware Driver
+> [!WARNING]
+> It is mandatory to use a book provided by teacher instead of README.MD files If you are ITMO University student and studing Operation System ROS. 
+>
+> README.MD files only for NON ITMO students! 
 
 ## Objective
 
